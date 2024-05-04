@@ -1,0 +1,705 @@
+{
+	"info": {
+		"_postman_id": "ecc822e5-29b4-42cd-8b8a-00dfd06daf24",
+		"name": "Repository",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "33110825"
+	},
+	"item": [
+		{
+			"name": "Create a repository for the authenticated user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for verifying the status code\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"// Test for verifying the status description \r",
+							"pm.test(\"Status Description is Created\", function () {\r",
+							"    pm.response.to.have.status(\"Created\");\r",
+							"});\r",
+							"\r",
+							"// Test for verifying the response time\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"//Test to fetch the value of id and store it in a collection veriable\r",
+							"pm.test(\"Id value fetched and updated in repoId veriable.\", function(){\r",
+							"    var responseBody = pm.response.json();\r",
+							"    pm.collectionVariables.set(\"repoId\", responseBody.id);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let RandomNumber = console.log(Math.floor(Math.random() * 100));\r",
+							"console.log(RandomNumber);\r",
+							"pm.collectionVariables.set(\"Repo_Name\", \"BatchM6\" + RandomNumber);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{GitHub_Token}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"{{Repo_Name}}\",\r\n    \"description\" : \"This is my second repo.\",\r\n    \"Private\" : false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{Github base URL}}/user/repos"
+			},
+			"response": [
+				{
+					"name": "3rd Repo Created",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"3r_Repo\",\r\n    \"description\" : \"This is my second repo.\",\r\n    \"Private\" : false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{Github base URL}}/user/repos"
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "GitHub.com"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 15 Mar 2024 05:24:55 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "5281"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "private, max-age=60, s-maxage=60"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Authorization, Cookie, X-GitHub-OTP"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding, Accept, X-Requested-With"
+						},
+						{
+							"key": "ETag",
+							"value": "\"369539553855566aa73ccad9165eedccbc54898c4547f7894d76844bcf774848\""
+						},
+						{
+							"key": "X-OAuth-Scopes",
+							"value": "delete_repo, repo"
+						},
+						{
+							"key": "X-Accepted-OAuth-Scopes",
+							"value": "public_repo, repo"
+						},
+						{
+							"key": "github-authentication-token-expiration",
+							"value": "2024-03-22 05:18:26 UTC"
+						},
+						{
+							"key": "Location",
+							"value": "https://api.github.com/repos/YASH4207/3r_Repo"
+						},
+						{
+							"key": "X-GitHub-Media-Type",
+							"value": "github.v3; format=json"
+						},
+						{
+							"key": "x-github-api-version-selected",
+							"value": "2022-11-28"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "5000"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "4993"
+						},
+						{
+							"key": "X-RateLimit-Reset",
+							"value": "1710483626"
+						},
+						{
+							"key": "X-RateLimit-Used",
+							"value": "7"
+						},
+						{
+							"key": "X-RateLimit-Resource",
+							"value": "core"
+						},
+						{
+							"key": "Access-Control-Expose-Headers",
+							"value": "ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=31536000; includeSubdomains; preload"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "deny"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "origin-when-cross-origin, strict-origin-when-cross-origin"
+						},
+						{
+							"key": "Content-Security-Policy",
+							"value": "default-src 'none'"
+						},
+						{
+							"key": "X-GitHub-Request-Id",
+							"value": "F401:1175F3:191D45:1B392A:65F3DBA6"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 772394440,\n    \"node_id\": \"R_kgDOLgnNyA\",\n    \"name\": \"3r_Repo\",\n    \"full_name\": \"YASH4207/3r_Repo\",\n    \"private\": false,\n    \"owner\": {\n        \"login\": \"YASH4207\",\n        \"id\": 91303619,\n        \"node_id\": \"MDQ6VXNlcjkxMzAzNjE5\",\n        \"avatar_url\": \"https://avatars.githubusercontent.com/u/91303619?v=4\",\n        \"gravatar_id\": \"\",\n        \"url\": \"https://api.github.com/users/YASH4207\",\n        \"html_url\": \"https://github.com/YASH4207\",\n        \"followers_url\": \"https://api.github.com/users/YASH4207/followers\",\n        \"following_url\": \"https://api.github.com/users/YASH4207/following{/other_user}\",\n        \"gists_url\": \"https://api.github.com/users/YASH4207/gists{/gist_id}\",\n        \"starred_url\": \"https://api.github.com/users/YASH4207/starred{/owner}{/repo}\",\n        \"subscriptions_url\": \"https://api.github.com/users/YASH4207/subscriptions\",\n        \"organizations_url\": \"https://api.github.com/users/YASH4207/orgs\",\n        \"repos_url\": \"https://api.github.com/users/YASH4207/repos\",\n        \"events_url\": \"https://api.github.com/users/YASH4207/events{/privacy}\",\n        \"received_events_url\": \"https://api.github.com/users/YASH4207/received_events\",\n        \"type\": \"User\",\n        \"site_admin\": false\n    },\n    \"html_url\": \"https://github.com/YASH4207/3r_Repo\",\n    \"description\": \"This is my second repo.\",\n    \"fork\": false,\n    \"url\": \"https://api.github.com/repos/YASH4207/3r_Repo\",\n    \"forks_url\": \"https://api.github.com/repos/YASH4207/3r_Repo/forks\",\n    \"keys_url\": \"https://api.github.com/repos/YASH4207/3r_Repo/keys{/key_id}\",\n    \"collaborators_url\": \"https://api.github.com/repos/YASH4207/3r_Repo/collaborators{/collaborator}\",\n    \"teams_url\": \"https://api.github.com/repos/YASH4207/3r_Repo/teams\",\n    \"hooks_url\": \"https://api.github.com/repos/YASH4207/3r_Repo/hooks\",\n    \"issue_events_url\": \"https://api.github.com/repos/YASH4207/3r_Repo/issues/events{/number}\",\n    \"events_url\": \"https://api.github.com/repos/YASH4207/3r_Repo/events\",\n    \"assignees_url\": \"https://api.github.com/repos/YASH4207/3r_Repo/assignees{/user}\",\n    \"branches_url\": \"https://api.github.com/repos/YASH4207/3r_Repo/branches{/branch}\",\n    \"tags_url\": \"https://api.github.com/repos/YASH4207/3r_Repo/tags\",\n    \"blobs_url\": \"https://api.github.com/repos/YASH4207/3r_Repo/git/blobs{/sha}\",\n    \"git_tags_url\": \"https://api.github.com/repos/YASH4207/3r_Repo/git/tags{/sha}\",\n    \"git_refs_url\": \"https://api.github.com/repos/YASH4207/3r_Repo/git/refs{/sha}\",\n    \"trees_url\": \"https://api.github.com/repos/YASH4207/3r_Repo/git/trees{/sha}\",\n    \"statuses_url\": \"https://api.github.com/repos/YASH4207/3r_Repo/statuses/{sha}\",\n    \"languages_url\": \"https://api.github.com/repos/YASH4207/3r_Repo/languages\",\n    \"stargazers_url\": \"https://api.github.com/repos/YASH4207/3r_Repo/stargazers\",\n    \"contributors_url\": \"https://api.github.com/repos/YASH4207/3r_Repo/contributors\",\n    \"subscribers_url\": \"https://api.github.com/repos/YASH4207/3r_Repo/subscribers\",\n    \"subscription_url\": \"https://api.github.com/repos/YASH4207/3r_Repo/subscription\",\n    \"commits_url\": \"https://api.github.com/repos/YASH4207/3r_Repo/commits{/sha}\",\n    \"git_commits_url\": \"https://api.github.com/repos/YASH4207/3r_Repo/git/commits{/sha}\",\n    \"comments_url\": \"https://api.github.com/repos/YASH4207/3r_Repo/comments{/number}\",\n    \"issue_comment_url\": \"https://api.github.com/repos/YASH4207/3r_Repo/issues/comments{/number}\",\n    \"contents_url\": \"https://api.github.com/repos/YASH4207/3r_Repo/contents/{+path}\",\n    \"compare_url\": \"https://api.github.com/repos/YASH4207/3r_Repo/compare/{base}...{head}\",\n    \"merges_url\": \"https://api.github.com/repos/YASH4207/3r_Repo/merges\",\n    \"archive_url\": \"https://api.github.com/repos/YASH4207/3r_Repo/{archive_format}{/ref}\",\n    \"downloads_url\": \"https://api.github.com/repos/YASH4207/3r_Repo/downloads\",\n    \"issues_url\": \"https://api.github.com/repos/YASH4207/3r_Repo/issues{/number}\",\n    \"pulls_url\": \"https://api.github.com/repos/YASH4207/3r_Repo/pulls{/number}\",\n    \"milestones_url\": \"https://api.github.com/repos/YASH4207/3r_Repo/milestones{/number}\",\n    \"notifications_url\": \"https://api.github.com/repos/YASH4207/3r_Repo/notifications{?since,all,participating}\",\n    \"labels_url\": \"https://api.github.com/repos/YASH4207/3r_Repo/labels{/name}\",\n    \"releases_url\": \"https://api.github.com/repos/YASH4207/3r_Repo/releases{/id}\",\n    \"deployments_url\": \"https://api.github.com/repos/YASH4207/3r_Repo/deployments\",\n    \"created_at\": \"2024-03-15T05:24:54Z\",\n    \"updated_at\": \"2024-03-15T05:24:54Z\",\n    \"pushed_at\": \"2024-03-15T05:24:54Z\",\n    \"git_url\": \"git://github.com/YASH4207/3r_Repo.git\",\n    \"ssh_url\": \"git@github.com:YASH4207/3r_Repo.git\",\n    \"clone_url\": \"https://github.com/YASH4207/3r_Repo.git\",\n    \"svn_url\": \"https://github.com/YASH4207/3r_Repo\",\n    \"homepage\": null,\n    \"size\": 0,\n    \"stargazers_count\": 0,\n    \"watchers_count\": 0,\n    \"language\": null,\n    \"has_issues\": true,\n    \"has_projects\": true,\n    \"has_downloads\": true,\n    \"has_wiki\": true,\n    \"has_pages\": false,\n    \"has_discussions\": false,\n    \"forks_count\": 0,\n    \"mirror_url\": null,\n    \"archived\": false,\n    \"disabled\": false,\n    \"open_issues_count\": 0,\n    \"license\": null,\n    \"allow_forking\": true,\n    \"is_template\": false,\n    \"web_commit_signoff_required\": false,\n    \"topics\": [],\n    \"visibility\": \"public\",\n    \"forks\": 0,\n    \"open_issues\": 0,\n    \"watchers\": 0,\n    \"default_branch\": \"main\",\n    \"permissions\": {\n        \"admin\": true,\n        \"maintain\": true,\n        \"push\": true,\n        \"triage\": true,\n        \"pull\": true\n    },\n    \"allow_squash_merge\": true,\n    \"allow_merge_commit\": true,\n    \"allow_rebase_merge\": true,\n    \"allow_auto_merge\": false,\n    \"delete_branch_on_merge\": false,\n    \"allow_update_branch\": false,\n    \"use_squash_pr_title_as_default\": false,\n    \"squash_merge_commit_message\": \"COMMIT_MESSAGES\",\n    \"squash_merge_commit_title\": \"COMMIT_OR_PR_TITLE\",\n    \"merge_commit_message\": \"PR_TITLE\",\n    \"merge_commit_title\": \"MERGE_MESSAGE\",\n    \"network_count\": 0,\n    \"subscribers_count\": 0\n}"
+				}
+			]
+		},
+		{
+			"name": "Get a Repository",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for verifying the status code\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Test for verifying the status description \r",
+							"pm.test(\"Status Description is OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"\r",
+							"// // Test for verifying the response time\r",
+							"// pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"//     pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"// });\r",
+							"\r",
+							"// //Test to fetch the value of id and store it in a collection veriable\r",
+							"// pm.test(\"Id value fetched and updated in repoId veriable.\", function(){\r",
+							"//     var responseBody = pm.response.json();\r",
+							"//     pm.collectionVariables.set(\"repoId\", responseBody.id);\r",
+							"// });"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{Github base URL}}/repos/{{Owner}}/{{Repo_Name}}"
+			},
+			"response": [
+				{
+					"name": "Got a Repository",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "{{Github base URL}}/repos/{{Owner}}/{{Repo_Name}}"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "GitHub.com"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 16 Mar 2024 05:09:15 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "public, max-age=60, s-maxage=60"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Accept-Encoding, Accept, X-Requested-With"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"690baea96ebd675c101b44a7f25a20760f999228f93e13f317a651320a7cc193\""
+						},
+						{
+							"key": "Last-Modified",
+							"value": "Sat, 16 Mar 2024 04:46:29 GMT"
+						},
+						{
+							"key": "X-GitHub-Media-Type",
+							"value": "github.v3; format=json"
+						},
+						{
+							"key": "x-github-api-version-selected",
+							"value": "2022-11-28"
+						},
+						{
+							"key": "Access-Control-Expose-Headers",
+							"value": "ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=31536000; includeSubdomains; preload"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "deny"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "origin-when-cross-origin, strict-origin-when-cross-origin"
+						},
+						{
+							"key": "Content-Security-Policy",
+							"value": "default-src 'none'"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "54"
+						},
+						{
+							"key": "X-RateLimit-Reset",
+							"value": "1710568215"
+						},
+						{
+							"key": "X-RateLimit-Resource",
+							"value": "core"
+						},
+						{
+							"key": "X-RateLimit-Used",
+							"value": "6"
+						},
+						{
+							"key": "Accept-Ranges",
+							"value": "bytes"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1224"
+						},
+						{
+							"key": "X-GitHub-Request-Id",
+							"value": "DF99:173ECB:25D550:2950C2:65F5297B"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 772862449,\n    \"node_id\": \"R_kgDOLhDx8Q\",\n    \"name\": \"BatchM6undefined\",\n    \"full_name\": \"YASH4207/BatchM6undefined\",\n    \"private\": false,\n    \"owner\": {\n        \"login\": \"YASH4207\",\n        \"id\": 91303619,\n        \"node_id\": \"MDQ6VXNlcjkxMzAzNjE5\",\n        \"avatar_url\": \"https://avatars.githubusercontent.com/u/91303619?v=4\",\n        \"gravatar_id\": \"\",\n        \"url\": \"https://api.github.com/users/YASH4207\",\n        \"html_url\": \"https://github.com/YASH4207\",\n        \"followers_url\": \"https://api.github.com/users/YASH4207/followers\",\n        \"following_url\": \"https://api.github.com/users/YASH4207/following{/other_user}\",\n        \"gists_url\": \"https://api.github.com/users/YASH4207/gists{/gist_id}\",\n        \"starred_url\": \"https://api.github.com/users/YASH4207/starred{/owner}{/repo}\",\n        \"subscriptions_url\": \"https://api.github.com/users/YASH4207/subscriptions\",\n        \"organizations_url\": \"https://api.github.com/users/YASH4207/orgs\",\n        \"repos_url\": \"https://api.github.com/users/YASH4207/repos\",\n        \"events_url\": \"https://api.github.com/users/YASH4207/events{/privacy}\",\n        \"received_events_url\": \"https://api.github.com/users/YASH4207/received_events\",\n        \"type\": \"User\",\n        \"site_admin\": false\n    },\n    \"html_url\": \"https://github.com/YASH4207/BatchM6undefined\",\n    \"description\": \"This is my second repo.\",\n    \"fork\": false,\n    \"url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined\",\n    \"forks_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/forks\",\n    \"keys_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/keys{/key_id}\",\n    \"collaborators_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/collaborators{/collaborator}\",\n    \"teams_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/teams\",\n    \"hooks_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/hooks\",\n    \"issue_events_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/issues/events{/number}\",\n    \"events_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/events\",\n    \"assignees_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/assignees{/user}\",\n    \"branches_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/branches{/branch}\",\n    \"tags_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/tags\",\n    \"blobs_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/git/blobs{/sha}\",\n    \"git_tags_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/git/tags{/sha}\",\n    \"git_refs_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/git/refs{/sha}\",\n    \"trees_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/git/trees{/sha}\",\n    \"statuses_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/statuses/{sha}\",\n    \"languages_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/languages\",\n    \"stargazers_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/stargazers\",\n    \"contributors_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/contributors\",\n    \"subscribers_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/subscribers\",\n    \"subscription_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/subscription\",\n    \"commits_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/commits{/sha}\",\n    \"git_commits_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/git/commits{/sha}\",\n    \"comments_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/comments{/number}\",\n    \"issue_comment_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/issues/comments{/number}\",\n    \"contents_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/contents/{+path}\",\n    \"compare_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/compare/{base}...{head}\",\n    \"merges_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/merges\",\n    \"archive_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/{archive_format}{/ref}\",\n    \"downloads_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/downloads\",\n    \"issues_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/issues{/number}\",\n    \"pulls_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/pulls{/number}\",\n    \"milestones_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/milestones{/number}\",\n    \"notifications_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/notifications{?since,all,participating}\",\n    \"labels_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/labels{/name}\",\n    \"releases_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/releases{/id}\",\n    \"deployments_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/deployments\",\n    \"created_at\": \"2024-03-16T04:46:29Z\",\n    \"updated_at\": \"2024-03-16T04:46:29Z\",\n    \"pushed_at\": \"2024-03-16T04:46:29Z\",\n    \"git_url\": \"git://github.com/YASH4207/BatchM6undefined.git\",\n    \"ssh_url\": \"git@github.com:YASH4207/BatchM6undefined.git\",\n    \"clone_url\": \"https://github.com/YASH4207/BatchM6undefined.git\",\n    \"svn_url\": \"https://github.com/YASH4207/BatchM6undefined\",\n    \"homepage\": null,\n    \"size\": 0,\n    \"stargazers_count\": 0,\n    \"watchers_count\": 0,\n    \"language\": null,\n    \"has_issues\": true,\n    \"has_projects\": true,\n    \"has_downloads\": true,\n    \"has_wiki\": true,\n    \"has_pages\": false,\n    \"has_discussions\": false,\n    \"forks_count\": 0,\n    \"mirror_url\": null,\n    \"archived\": false,\n    \"disabled\": false,\n    \"open_issues_count\": 0,\n    \"license\": null,\n    \"allow_forking\": true,\n    \"is_template\": false,\n    \"web_commit_signoff_required\": false,\n    \"topics\": [],\n    \"visibility\": \"public\",\n    \"forks\": 0,\n    \"open_issues\": 0,\n    \"watchers\": 0,\n    \"default_branch\": \"main\",\n    \"temp_clone_token\": null,\n    \"network_count\": 0,\n    \"subscribers_count\": 1\n}"
+				}
+			]
+		},
+		{
+			"name": "Update Repository",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{GitHub_Token}}"
+					}
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"private\":true}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{Github base URL}}/repos/{{Owner}}/{{Repo_Name}}"
+			},
+			"response": [
+				{
+					"name": "Updated Repository",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"private\":true}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{Github base URL}}/repos/{{Owner}}/{{Repo_Name}}"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "GitHub.com"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 16 Mar 2024 05:09:31 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "private, max-age=60, s-maxage=60"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Authorization, Cookie, X-GitHub-OTP"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding, Accept, X-Requested-With"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"f01b882e09ef9b32aa0006280cc6571c446ee0f1d87298b7c9a4badc428bca71\""
+						},
+						{
+							"key": "X-OAuth-Scopes",
+							"value": "delete_repo, repo"
+						},
+						{
+							"key": "X-Accepted-OAuth-Scopes",
+							"value": ""
+						},
+						{
+							"key": "github-authentication-token-expiration",
+							"value": "2024-03-22 05:18:26 UTC"
+						},
+						{
+							"key": "X-GitHub-Media-Type",
+							"value": "github.v3; format=json"
+						},
+						{
+							"key": "x-github-api-version-selected",
+							"value": "2022-11-28"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "5000"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "4984"
+						},
+						{
+							"key": "X-RateLimit-Reset",
+							"value": "1710565935"
+						},
+						{
+							"key": "X-RateLimit-Used",
+							"value": "16"
+						},
+						{
+							"key": "X-RateLimit-Resource",
+							"value": "core"
+						},
+						{
+							"key": "Access-Control-Expose-Headers",
+							"value": "ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=31536000; includeSubdomains; preload"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "deny"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "origin-when-cross-origin, strict-origin-when-cross-origin"
+						},
+						{
+							"key": "Content-Security-Policy",
+							"value": "default-src 'none'"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "X-GitHub-Request-Id",
+							"value": "DF99:173ECB:25DC0A:2957D8:65F5297B"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 772862449,\n    \"node_id\": \"R_kgDOLhDx8Q\",\n    \"name\": \"BatchM6undefined\",\n    \"full_name\": \"YASH4207/BatchM6undefined\",\n    \"private\": true,\n    \"owner\": {\n        \"login\": \"YASH4207\",\n        \"id\": 91303619,\n        \"node_id\": \"MDQ6VXNlcjkxMzAzNjE5\",\n        \"avatar_url\": \"https://avatars.githubusercontent.com/u/91303619?v=4\",\n        \"gravatar_id\": \"\",\n        \"url\": \"https://api.github.com/users/YASH4207\",\n        \"html_url\": \"https://github.com/YASH4207\",\n        \"followers_url\": \"https://api.github.com/users/YASH4207/followers\",\n        \"following_url\": \"https://api.github.com/users/YASH4207/following{/other_user}\",\n        \"gists_url\": \"https://api.github.com/users/YASH4207/gists{/gist_id}\",\n        \"starred_url\": \"https://api.github.com/users/YASH4207/starred{/owner}{/repo}\",\n        \"subscriptions_url\": \"https://api.github.com/users/YASH4207/subscriptions\",\n        \"organizations_url\": \"https://api.github.com/users/YASH4207/orgs\",\n        \"repos_url\": \"https://api.github.com/users/YASH4207/repos\",\n        \"events_url\": \"https://api.github.com/users/YASH4207/events{/privacy}\",\n        \"received_events_url\": \"https://api.github.com/users/YASH4207/received_events\",\n        \"type\": \"User\",\n        \"site_admin\": false\n    },\n    \"html_url\": \"https://github.com/YASH4207/BatchM6undefined\",\n    \"description\": \"This is my second repo.\",\n    \"fork\": false,\n    \"url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined\",\n    \"forks_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/forks\",\n    \"keys_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/keys{/key_id}\",\n    \"collaborators_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/collaborators{/collaborator}\",\n    \"teams_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/teams\",\n    \"hooks_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/hooks\",\n    \"issue_events_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/issues/events{/number}\",\n    \"events_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/events\",\n    \"assignees_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/assignees{/user}\",\n    \"branches_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/branches{/branch}\",\n    \"tags_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/tags\",\n    \"blobs_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/git/blobs{/sha}\",\n    \"git_tags_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/git/tags{/sha}\",\n    \"git_refs_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/git/refs{/sha}\",\n    \"trees_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/git/trees{/sha}\",\n    \"statuses_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/statuses/{sha}\",\n    \"languages_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/languages\",\n    \"stargazers_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/stargazers\",\n    \"contributors_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/contributors\",\n    \"subscribers_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/subscribers\",\n    \"subscription_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/subscription\",\n    \"commits_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/commits{/sha}\",\n    \"git_commits_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/git/commits{/sha}\",\n    \"comments_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/comments{/number}\",\n    \"issue_comment_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/issues/comments{/number}\",\n    \"contents_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/contents/{+path}\",\n    \"compare_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/compare/{base}...{head}\",\n    \"merges_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/merges\",\n    \"archive_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/{archive_format}{/ref}\",\n    \"downloads_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/downloads\",\n    \"issues_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/issues{/number}\",\n    \"pulls_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/pulls{/number}\",\n    \"milestones_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/milestones{/number}\",\n    \"notifications_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/notifications{?since,all,participating}\",\n    \"labels_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/labels{/name}\",\n    \"releases_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/releases{/id}\",\n    \"deployments_url\": \"https://api.github.com/repos/YASH4207/BatchM6undefined/deployments\",\n    \"created_at\": \"2024-03-16T04:46:29Z\",\n    \"updated_at\": \"2024-03-16T05:09:31Z\",\n    \"pushed_at\": \"2024-03-16T04:46:29Z\",\n    \"git_url\": \"git://github.com/YASH4207/BatchM6undefined.git\",\n    \"ssh_url\": \"git@github.com:YASH4207/BatchM6undefined.git\",\n    \"clone_url\": \"https://github.com/YASH4207/BatchM6undefined.git\",\n    \"svn_url\": \"https://github.com/YASH4207/BatchM6undefined\",\n    \"homepage\": null,\n    \"size\": 0,\n    \"stargazers_count\": 0,\n    \"watchers_count\": 0,\n    \"language\": null,\n    \"has_issues\": true,\n    \"has_projects\": true,\n    \"has_downloads\": true,\n    \"has_wiki\": false,\n    \"has_pages\": false,\n    \"has_discussions\": false,\n    \"forks_count\": 0,\n    \"mirror_url\": null,\n    \"archived\": false,\n    \"disabled\": false,\n    \"open_issues_count\": 0,\n    \"license\": null,\n    \"allow_forking\": true,\n    \"is_template\": false,\n    \"web_commit_signoff_required\": false,\n    \"topics\": [],\n    \"visibility\": \"private\",\n    \"forks\": 0,\n    \"open_issues\": 0,\n    \"watchers\": 0,\n    \"default_branch\": \"main\",\n    \"permissions\": {\n        \"admin\": true,\n        \"maintain\": true,\n        \"push\": true,\n        \"triage\": true,\n        \"pull\": true\n    },\n    \"allow_squash_merge\": true,\n    \"allow_merge_commit\": true,\n    \"allow_rebase_merge\": true,\n    \"allow_auto_merge\": false,\n    \"delete_branch_on_merge\": false,\n    \"allow_update_branch\": false,\n    \"use_squash_pr_title_as_default\": false,\n    \"squash_merge_commit_message\": \"COMMIT_MESSAGES\",\n    \"squash_merge_commit_title\": \"COMMIT_OR_PR_TITLE\",\n    \"merge_commit_message\": \"PR_TITLE\",\n    \"merge_commit_title\": \"MERGE_MESSAGE\",\n    \"security_and_analysis\": {\n        \"secret_scanning\": {\n            \"status\": \"disabled\"\n        },\n        \"secret_scanning_push_protection\": {\n            \"status\": \"disabled\"\n        },\n        \"dependabot_security_updates\": {\n            \"status\": \"disabled\"\n        },\n        \"secret_scanning_validity_checks\": {\n            \"status\": \"disabled\"\n        }\n    },\n    \"network_count\": 0,\n    \"subscribers_count\": 1\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete Repository",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{GitHub_Token}}"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "{{Github base URL}}/repos/{{Owner}}/{{Repo_Name}}"
+			},
+			"response": [
+				{
+					"name": "Deleted Repository",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{Github base URL}}/repos/{{Owner}}/{{Repo_Name}}"
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "GitHub.com"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 16 Mar 2024 05:10:01 GMT"
+						},
+						{
+							"key": "X-OAuth-Scopes",
+							"value": "delete_repo, repo"
+						},
+						{
+							"key": "X-Accepted-OAuth-Scopes",
+							"value": ""
+						},
+						{
+							"key": "github-authentication-token-expiration",
+							"value": "2024-03-22 05:18:26 UTC"
+						},
+						{
+							"key": "X-GitHub-Media-Type",
+							"value": "github.v3; format=json"
+						},
+						{
+							"key": "x-github-api-version-selected",
+							"value": "2022-11-28"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "5000"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "4983"
+						},
+						{
+							"key": "X-RateLimit-Reset",
+							"value": "1710565935"
+						},
+						{
+							"key": "X-RateLimit-Used",
+							"value": "17"
+						},
+						{
+							"key": "X-RateLimit-Resource",
+							"value": "core"
+						},
+						{
+							"key": "Access-Control-Expose-Headers",
+							"value": "ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=31536000; includeSubdomains; preload"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "deny"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "origin-when-cross-origin, strict-origin-when-cross-origin"
+						},
+						{
+							"key": "Content-Security-Policy",
+							"value": "default-src 'none'"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding, Accept, X-Requested-With"
+						},
+						{
+							"key": "X-GitHub-Request-Id",
+							"value": "DF99:173ECB:25E7D2:296451:65F5298C"
+						}
+					],
+					"cookie": [],
+					"body": null
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Github base URL",
+			"value": ""
+		},
+		{
+			"key": "repoId",
+			"value": ""
+		},
+		{
+			"key": "Repo_Name",
+			"value": ""
+		},
+		{
+			"key": "GitHub_Token",
+			"value": "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"
+		},
+		{
+			"key": "Owner",
+			"value": "YASH4207"
+		}
+	]
+}
